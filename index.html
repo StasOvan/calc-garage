@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Калькулятор стоимости гаража</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Калькулятор стоимости гаража</h1>
+        </header>
+        
+        <div class="calculator">
+
+            <section>
+
+                <div style="display: flex; justify-content: space-between;">
+                    <div class="form-group inline">
+                        <label for="valWidth" class="inline">Ширина (м)</label>
+                        <input type="number" id="valWidth" min="0" step="0.1">
+                    </div>
+                    <div class="form-group inline">
+                        <label for="valLength">Длина (м)</label>
+                        <input type="number" id="valLength" min="0" step="0.1">
+                    </div>
+                    <div class="form-group inline">
+                        <label for="valHeight">Высота (м)</label>
+                        <input type="number" id="valHeight" min="0" step="0.1" placeholder="2.4 или 3.0 (или произвольно)">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Тип кровли:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="valRoofType1" name="valRoofType" value="Двухскатная" checked>
+                            <label for="valRoofType1">Двухскатная</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="valRoofType2" name="valRoofType" value="Односкатная">
+                            <label for="valRoofType2">Односкатная</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group flex-inline">
+                    <label for="valGateCount">Количество ворот (шт):</label>
+                    <input type="number" id="valGateCount" min="1" max="2" step="1">
+                </div>
+                
+                <div class="form-group" id="gateElectricGroup">
+                    <label>Электропривод ворот с пультом:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="valGateElectric1" name="valGateElectric" value="да">
+                            <label for="valGateElectric1">Да</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="valGateElectric2" name="valGateElectric" value="нет" checked>
+                            <label for="valGateElectric2">Нет</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Комплект электроосвещения:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="valLighting">
+                            <label for="valLighting">Да</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <div class="form-group">
+                    <label>Водосточная система:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="valWaterSystem">
+                            <label for="valWaterSystem">Да</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Фундамент:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="valFoundation1" name="valFoundation" value="нет" checked>
+                            <label for="valFoundation1">Нет</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="valFoundation2" name="valFoundation" value="Плита 150мм">
+                            <label for="valFoundation2">Плита 150мм</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="valFoundation3" name="valFoundation" value="Винтовые сваи">
+                            <label for="valFoundation3">Винтовые сваи</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Утепление:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="valInsulation1" name="valInsulation" value="Профилированный лист" checked>
+                            <label for="valInsulation1">Нет (профилированный лист)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="valInsulation2" name="valInsulation" value="Сэндвич панели 100мм">
+                            <label for="valInsulation2">Сэндвич панели 100мм</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group flex-inline">
+                    <label for="valWindowCount">Количество окон 700*1000 (шт):</label>
+                    <input type="number" id="valWindowCount" min="0" value="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label>Дверь:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="valDoor">
+                            <label for="valDoor">Да</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div class="summary" id="summary">
+            <!-- <h2>Рассчет стоимости</h2> -->
+            <div class="price-range">
+                <span class="price-min">Минимальная стоимость: 0 руб.</span><br>
+                <span class="price-max">Максимальная стоимость: 0 руб.</span>
+            </div>
+            
+            <div class="price-details">
+                <h3>Детали расчета</h3>
+                <ul id="priceDetails">
+                    <!-- Детали расчета будут добавлены с помощью JavaScript -->
+                </ul>
+            </div>
+            
+            <button class="reset-btn" id="resetBtn">Сбросить все значения</button>
+            <button class="telegram-btn" id="telegramBtn" style="display: none;">Отправить расчет</button>
+        </div>
+    </div>
+
+<script src="app.js"></script>
+</body>
+</html>
